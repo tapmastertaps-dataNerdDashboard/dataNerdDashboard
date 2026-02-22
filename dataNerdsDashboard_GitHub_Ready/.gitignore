@@ -1,0 +1,16 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Data files (never commit user data)
+*.csv
+Naming_File_*.txt
+Earnings_File_*.csv
+Withdraw_File_*.csv
