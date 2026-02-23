@@ -330,7 +330,7 @@ body.easy-mode #grossBtn,
 body.easy-mode #grossIndicator,
 body.easy-mode .reset-btn,
 body.easy-mode .live-badge,
-body.easy-mode #legendRow { display: none !important; }
+
 body.easy-mode .adv-overview-only { display: none !important; }
 
 /* ── HEADER ── */
@@ -391,9 +391,7 @@ body.easy-mode .adv-overview-only { display: none !important; }
 }
 .theme-btn:hover { border-color: var(--border2); color: var(--text); }
 
-.legend { display: flex; gap: .4rem; flex-wrap: nowrap; align-items: center; overflow: hidden; }
-.leg { display: flex; align-items: center; gap: .3rem; font-size: .65rem; font-weight: 600; color: var(--text2); }
-.leg-swatch { width: 12px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+
 
 /* ── KPI CARDS ── */
 .kpi-row { display: grid; grid-template-columns: repeat(4,1fr); gap: .85rem; margin-bottom: .85rem; }
@@ -741,12 +739,14 @@ body.easy-mode .adv-overview-only { display: none !important; }
 #pageNav {
   display: flex;
   align-items: center; gap: .25rem;
+  justify-content: center;
   padding: .3rem 1.4rem;
   border-top: 1px solid var(--border);
   border-bottom: 2px solid var(--border);
   background: var(--surface);
   flex-wrap: nowrap;
-  overflow-x: auto;
+  overflow: visible;
+  position: relative;
 }
 .nav-tab {
   display: flex; align-items: center; gap: .42rem;
@@ -794,6 +794,7 @@ body.easy-mode .adv-overview-only { display: none !important; }
   z-index: 210;
   background: var(--surface);
   box-shadow: 0 3px 18px rgba(0,0,0,.12);
+  overflow: visible;
 }
 
 /* ── TICKER ── */
@@ -832,7 +833,7 @@ body.easy-mode .adv-overview-only { display: none !important; }
   .hdr-right { gap: .25rem; max-height: 44px; }
   .hdr-right .theme-btn, .hdr-right .reset-btn { font-size: .52rem; padding: .2rem .4rem; }
   .hdr-right .legend { display: none; }
-  #pageNav { gap: 0; padding: .3rem .4rem; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  #pageNav { gap: 0; padding: .3rem .4rem; flex-wrap: nowrap; overflow-x: auto; overflow-y: visible; -webkit-overflow-scrolling: touch; }
   .nav-tab { font-size: .55rem; padding: .35rem .5rem; white-space: nowrap; min-width: 0; }
   .nav-tab svg { display: none; }
   .sc { padding: .6rem .7rem; border-radius: 8px; }
@@ -1293,7 +1294,7 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
 .hm-week { display: flex; flex-direction: column; gap: 2px; }
 .hm-grid { display: flex; gap: 2px; }
 .hm-cell {
-  width: 13px; height: 13px; border-radius: 2px;
+  border-radius: 2px;
   cursor: pointer; transition: transform .1s;
   flex-shrink: 0;
 }
@@ -1559,7 +1560,7 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
     </div>
 
     <!-- Unified Upload -->
-    <div id="dropZoneAll" class="easy-only" onclick="document.getElementById('fileInputAll').click()" style="max-width:960px;width:100%;margin:0 auto .7rem;border:2px dashed rgba(59,130,246,.55);border-radius:12px;padding:.7rem 1.2rem;cursor:pointer;background:rgba(59,130,246,.09);transition:all .2s">
+    <div id="dropZoneAll" onclick="document.getElementById('fileInputAll').click()" style="max-width:960px;width:100%;margin:0 auto .7rem;border:2px dashed rgba(59,130,246,.55);border-radius:12px;padding:.7rem 1.2rem;cursor:pointer;background:rgba(59,130,246,.09);transition:all .2s">
       <div style="display:flex;align-items:center;justify-content:center;gap:.7rem;flex-wrap:wrap">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         <div style="font-size:.78rem;font-weight:800;color:#1a2c38">📂 Upload All Files At Once</div>
@@ -1570,63 +1571,29 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
       <div id="allUploadStatus" style="font-size:.6rem;color:var(--muted);text-align:center;margin-top:.25rem"></div>
     </div>
 
-    <div class="upload-grid adv-only">
+    <div class="upload-grid adv-only" style="margin-bottom:.4rem">
 
-      <div class="upload-area" id="dropZoneNames" onclick="document.getElementById('fileInputNames').click()">
-        <div class="upload-zone-glow" style="--zgc:#8b5cf6"></div>
-        <div class="upload-icon" style="background:rgba(139,92,246,.14);box-shadow:0 0 0 5px rgba(139,92,246,.06)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-          </svg>
-        </div>
-        <div class="upload-zone-badge" style="background:rgba(139,92,246,.12);color:#7c3aed;border-color:rgba(139,92,246,.28)">optional</div>
-        <div class="upload-title">Lease Names</div>
-        <div class="upload-desc">Your <strong>lease_names.txt</strong> — maps IDs to groups &amp; nodes.</div>
-        <div class="upload-chip" style="background:rgba(139,92,246,.1);color:#7c3aed;border-color:rgba(139,92,246,.28)">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Choose .txt
-        </div>
-        <div id="namesStatus" class="upload-status"></div>
-        <input type="file" id="fileInputNames" accept=".txt" style="display:none">
+      <div style="background:rgba(59,130,246,.06);border-radius:10px;padding:.5rem .7rem;border:1px solid rgba(59,130,246,.18);text-align:center">
+        <div style="width:28px;height:28px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);font-size:14px;margin-bottom:.25rem">📋</div><br>
+        <div style="display:inline-block;font-size:.5rem;font-weight:700;padding:.1rem .35rem;border-radius:6px;border:1px solid rgba(59,130,246,.25);background:rgba(59,130,246,.08);color:rgba(59,130,246,.7);margin-bottom:.15rem">optional</div>
+        <div style="font-size:.7rem;font-weight:800;color:var(--text)">Lease Names</div>
+        <div style="font-size:.55rem;color:var(--muted);line-height:1.3;margin-top:.1rem">Your lease_names.txt — maps IDs to groups &amp; nodes</div>
+        <div id="namesStatus" style="font-size:.55rem;margin-top:.2rem"></div>
       </div>
 
-      <div class="upload-area upload-area-primary" id="dropZone" onclick="document.getElementById('fileInput').click()">
-        <div class="upload-zone-glow" style="--zgc:#3b82f6"></div>
-        <div class="upload-icon" style="background:rgba(59,130,246,.16);box-shadow:0 0 0 6px rgba(59,130,246,.07)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="17 8 12 3 7 8"/>
-            <line x1="12" y1="3" x2="12" y2="15"/>
-          </svg>
-        </div>
-        <div class="upload-zone-badge" style="background:rgba(220,38,38,.1);color:#dc2626;border-color:rgba(220,38,38,.28)">required</div>
-        <div class="upload-title">Earnings Files</div>
-        <div class="upload-desc"><strong>export1.txt · export2.txt</strong><br>Multiple OK — dupes auto-removed.</div>
-        <button class="upload-btn" onclick="event.stopPropagation();document.getElementById('fileInput').click()">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Choose Files
-        </button>
-        <input type="file" id="fileInput" multiple accept=".txt,.json" style="display:none">
+      <div style="background:rgba(59,130,246,.06);border-radius:10px;padding:.5rem .7rem;border:1px solid rgba(59,130,246,.18);text-align:center">
+        <div style="width:28px;height:28px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);font-size:14px;margin-bottom:.25rem">📊</div><br>
+        <div style="display:inline-block;font-size:.5rem;font-weight:700;padding:.1rem .35rem;border-radius:6px;border:1px solid rgba(220,38,38,.28);background:rgba(220,38,38,.08);color:#dc2626;margin-bottom:.15rem">required</div>
+        <div style="font-size:.7rem;font-weight:800;color:var(--text)">Earnings Files</div>
+        <div style="font-size:.55rem;color:var(--muted);line-height:1.3;margin-top:.1rem">export1.txt · export2.txt — multiple OK, dupes auto-removed</div>
       </div>
 
-      <div class="upload-area" id="dropZoneWith" onclick="document.getElementById('fileInputWith').click()">
-        <div class="upload-zone-glow" style="--zgc:#10b981"></div>
-        <div class="upload-icon" style="background:rgba(16,185,129,.12);box-shadow:0 0 0 5px rgba(16,185,129,.05)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round">
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-          </svg>
-        </div>
-        <div class="upload-zone-badge" style="background:rgba(16,185,129,.1);color:#059669;border-color:rgba(16,185,129,.28)">optional</div>
-        <div class="upload-title">Withdrawals</div>
-        <div class="upload-desc">Withdrawal JSON files — unlocks balance &amp; crypto tracking.</div>
-        <div class="upload-chip" style="background:rgba(16,185,129,.1);color:#059669;border-color:rgba(16,185,129,.28)">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Choose Files
-        </div>
-        <div id="withStatus" class="upload-status"></div>
-        <input type="file" id="fileInputWith" multiple accept=".txt,.json" style="display:none">
+      <div style="background:rgba(59,130,246,.06);border-radius:10px;padding:.5rem .7rem;border:1px solid rgba(59,130,246,.18);text-align:center">
+        <div style="width:28px;height:28px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);font-size:14px;margin-bottom:.25rem">💰</div><br>
+        <div style="display:inline-block;font-size:.5rem;font-weight:700;padding:.1rem .35rem;border-radius:6px;border:1px solid rgba(59,130,246,.25);background:rgba(59,130,246,.08);color:rgba(59,130,246,.7);margin-bottom:.15rem">optional</div>
+        <div style="font-size:.7rem;font-weight:800;color:var(--text)">Withdrawals</div>
+        <div style="font-size:.55rem;color:var(--muted);line-height:1.3;margin-top:.1rem">Withdrawal JSON — unlocks balance &amp; crypto tracking</div>
+        <div id="withStatus" style="font-size:.55rem;margin-top:.2rem"></div>
       </div>
 
     </div>
@@ -1677,15 +1644,16 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
       </div>
     </div>
     <div class="hdr-right">
-      <div class="legend" id="legendRow"></div>
+      
       <span class="live-badge">● LIVE</span>
       <span id="grossIndicator" style="display:none;background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;font-size:.52rem;font-weight:800;padding:.2rem .5rem;border-radius:6px;letter-spacing:.03em;cursor:help" title="You are viewing combined UNO + ULO earnings. This is calculated data, not actual received. Click the UNO + ULO button to switch back.">UNO + ULO VIEW</span>
-      <a id="switchModeLink" href="#" onclick="event.preventDefault();switchModeFromHeader()" style="display:none;font-size:.58rem;font-weight:700;color:#3b82f6;text-decoration:none;padding:.3rem .6rem;border:1px solid rgba(59,130,246,.3);border-radius:6px;white-space:nowrap">Switch to Advanced →</a>
-      <button class="theme-btn" onclick="toggleGrossView()" id="grossBtn" style="display:none" title="Switch between UNO earnings and combined UNO + ULO earnings view">💰 UNO Earnings</button>
-      <button class="theme-btn" onclick="toggleCompactView()" id="compactBtn" style="display:none" title="Quick daily summary">📊 Quick</button>
-      <button class="theme-btn" onclick="generateShareSnapshot()" id="shareBtn" style="display:none" title="Generate a shareable stats summary">📸 Share</button>
-      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
-      <button class="reset-btn" onclick="resetDashboard()">↺ Reset</button>
+      <a id="switchModeLink" href="#" onclick="event.preventDefault();switchModeFromHeader()" style="display:none;font-size:.58rem;font-weight:700;color:#3b82f6;text-decoration:none;padding:.3rem .6rem;border:1px solid rgba(59,130,246,.3);border-radius:6px;white-space:nowrap">← Easy</a>
+      <div style="width:1px;height:20px;background:var(--border);margin:0 .15rem"></div>
+      <button class="theme-btn" onclick="toggleGrossView()" id="grossBtn" style="display:none;padding:.3rem .5rem;font-size:.82rem;min-width:32px;text-align:center" title="UNO Earnings">🍄</button>
+      <button class="theme-btn" onclick="toggleCompactView()" id="compactBtn" style="display:none;padding:.3rem .5rem;font-size:.82rem;min-width:32px;text-align:center" title="Quick View">📊</button>
+      <button class="theme-btn" onclick="generateShareSnapshot()" id="shareBtn" style="display:none;padding:.3rem .5rem;font-size:.82rem;min-width:32px;text-align:center" title="Share Snapshot">📤</button>
+      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn" style="padding:.3rem .5rem;font-size:.82rem;min-width:32px;text-align:center" title="Dark Mode">🌙</button>
+      <button class="reset-btn" onclick="resetDashboard()" style="padding:.3rem .5rem;font-size:.82rem;min-width:32px;text-align:center" title="Reset Dashboard">↺</button>
     </div>
   </div>
   <div id="pageNav">
@@ -1699,7 +1667,7 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
     </button>
     <button class="nav-tab" data-page="distribution" onclick="showPage('distribution')">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="8" cy="12" r="2"/><circle cx="16" cy="8" r="2"/><circle cx="12" cy="17" r="2"/><circle cx="18" cy="16" r="2"/><circle cx="6" cy="7" r="2"/></svg>
-      Distribution
+      Breakdown
     </button>
     <button class="nav-tab" data-page="performance" onclick="showPage('performance')">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
@@ -1713,18 +1681,31 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
       Archive
     </button>
-    <button class="nav-tab" data-page="editor" onclick="showPage('editor')">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-      Names
-    </button>
     <button class="nav-tab" data-page="tools" onclick="showPage('tools')">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.32 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       Tools <span id="healthBadge" style="display:none;background:#ef4444;color:#fff;font-size:.5rem;font-weight:800;border-radius:50%;width:15px;height:15px;line-height:15px;text-align:center;margin-left:2px;vertical-align:top"></span>
+    </button>
+    <button class="nav-tab" data-page="editor" onclick="showPage('editor')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      Names
     </button>
     <button class="nav-tab" data-page="donate" onclick="showPage('donate')">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       Donate
     </button>
+    <div style="position:relative;display:inline-block">
+      <button class="nav-tab" id="keyToggleBtn" onclick="toggleKeyDropdown(event)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Key
+      </button>
+      <div id="keyDropdown" style="display:none;position:absolute;top:100%;right:0;margin-top:6px;background:var(--bg);backdrop-filter:none;border:1px solid var(--border);border-radius:12px;padding:.85rem 1rem;min-width:260px;max-width:340px;box-shadow:var(--shadow-md);z-index:99999;max-height:70vh;overflow-y:auto">
+        <div style="font-size:.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem">Groups</div>
+        <div id="keyGroups" style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:.7rem"></div>
+        <div style="height:1px;background:var(--border);margin:.4rem 0"></div>
+        <div style="font-size:.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem">Nodes</div>
+        <div id="keyNodes" style="display:flex;flex-direction:column;gap:.35rem"></div>
+      </div>
+    </div>
   </div>
 </div><!-- /topBar -->
 
@@ -1807,6 +1788,14 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
           <canvas id="easyRevTrendCanvas" style="width:100%;display:block" height="240"></canvas>
         </div>
       </div>
+      <div class="sc" style="margin-bottom:0;border-left:4px solid #f59e0b">
+        <div class="sc-title" style="color:#f59e0b">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          Week vs Week
+        </div>
+        <div class="sc-sub">This week vs last week</div>
+        <div id="comparisonContent"><div style="color:var(--muted);font-size:.78rem">Load data to see comparison.</div></div>
+      </div>
     </div>
     <div style="display:flex;gap:.85rem;margin-bottom:.9rem;flex-wrap:wrap">
       <div class="sc" style="margin-bottom:0;flex:2;min-width:320px">
@@ -1815,6 +1804,11 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
           License Earning Distribution
         </div>
         <div class="sc-sub">One dot per lease per day · color = group · hover for lease name &amp; amount</div>
+        <div class="ctrl-btns" style="margin-bottom:.4rem">
+          <button class="cbtn on" onclick="setDistWindow(1,this);try{renderDist('easyDistCanvas')}catch(e){}" style="padding:.15rem .45rem;font-size:.55rem">1 Day</button>
+          <button class="cbtn" onclick="setDistWindow(3,this);try{renderDist('easyDistCanvas')}catch(e){}" style="padding:.15rem .45rem;font-size:.55rem">3 Days</button>
+          <button class="cbtn" onclick="setDistWindow(5,this);try{renderDist('easyDistCanvas')}catch(e){}" style="padding:.15rem .45rem;font-size:.55rem">5 Days</button>
+        </div>
         <div id="easyDistWrap" style="width:100%;overflow:hidden">
           <canvas id="easyDistCanvas" style="width:100%;display:block" height="280"></canvas>
         </div>
@@ -1874,39 +1868,8 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
   <!-- ═══ PAGE: EARNINGS ═══ -->
   <div class="page-section" id="page-earnings">
 
-  <!-- Withdrawal Summary -->
-  <div class="sc" id="withdrawCard" style="display:none;border-left:3px solid #10b981">
-    <div class="sc-title" style="color:#10b981">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      Withdrawal Summary
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin-top:.65rem" id="withdrawGrid"></div>
-    <div style="margin-top:.5rem;padding:.35rem .6rem;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:6px;font-size:.54rem;color:#92400e;line-height:1.5">
-      ⚠️ If your earnings files don't cover the full withdrawal period, the net balance may appear lower than actual. Upload all available earnings exports for the most accurate view.
-    </div>
-    <div style="margin-top:.8rem" id="withdrawList"></div>
-  </div>
-
-  <!-- Monthly chart -->
-  <div class="sc" style="animation-delay:.4s">
-    <div class="sc-title">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      Monthly Earnings Breakdown
-    </div>
-    <div class="sc-sub">Stacked by group · highest earner anchored at bottom · upload monthly + year-end files to grow this over time</div>
-    <div class="ctrl-row" style="margin-bottom:.6rem">
-      <div class="ctrl-btns">
-        <button class="cbtn on" onclick="setMonthView('stacked',this)">Stacked</button>
-        <button class="cbtn" onclick="setMonthView('total',this)">Total</button>
-        <button class="cbtn" onclick="setMonthView('group',this)">By Group</button>
-      </div>
-      <div id="monthStats" style="font-size:.7rem;color:var(--muted);font-weight:500"></div>
-    </div>
-    <div id="monthChart"></div>
-  </div>
-
   <!-- Daily Earnings Bar Chart -->
-  <div class="sc" style="margin-top:.9rem">
+  <div class="sc" style="margin-top:0">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
       <div>
         <div class="sc-title">
@@ -1923,6 +1886,37 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
     </div>
     <canvas id="dailyBarCanvas" style="width:100%;display:block;cursor:crosshair" height="220"></canvas>
     <div id="dailyBarTip" style="display:none !important;position:fixed;background:#1a2c38;color:#f0f4f8;border:1px solid rgba(255,255,255,.12);border-left:3px solid var(--primary);border-radius:10px;padding:.6rem .9rem;font-size:.72rem;pointer-events:none;z-index:99999;box-shadow:0 8px 32px rgba(0,0,0,.45)"></div>
+  </div>
+
+  <!-- Monthly chart -->
+  <div class="sc" style="margin-top:.9rem">
+    <div class="sc-title">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      Monthly Earnings Breakdown
+    </div>
+    <div class="sc-sub">Stacked by group · highest earner anchored at bottom · upload monthly + year-end files to grow this over time</div>
+    <div class="ctrl-row" style="margin-bottom:.6rem">
+      <div class="ctrl-btns">
+        <button class="cbtn on" onclick="setMonthView('stacked',this)">Stacked</button>
+        <button class="cbtn" onclick="setMonthView('total',this)">Total</button>
+        <button class="cbtn" onclick="setMonthView('group',this)">By Group</button>
+      </div>
+      <div id="monthStats" style="font-size:.7rem;color:var(--muted);font-weight:500"></div>
+    </div>
+    <div id="monthChart"></div>
+  </div>
+
+  <!-- Withdrawal Summary -->
+  <div class="sc" id="withdrawCard" style="display:none;border-left:3px solid #10b981;margin-top:.9rem">
+    <div class="sc-title" style="color:#10b981">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Withdrawal Summary
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin-top:.65rem" id="withdrawGrid"></div>
+    <div style="margin-top:.5rem;padding:.35rem .6rem;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:6px;font-size:.54rem;color:#92400e;line-height:1.5">
+      ⚠️ If your earnings files don't cover the full withdrawal period, the net balance may appear lower than actual. Upload all available earnings exports for the most accurate view.
+    </div>
+    <div style="margin-top:.8rem" id="withdrawList"></div>
   </div>
 
   <!-- Analysis moved to Overview -->
@@ -1962,8 +1956,9 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
   <!-- ═══ PAGE: DISTRIBUTION ═══ -->
   <div class="page-section" id="page-distribution">
 
+  <div style="display:flex;gap:.85rem;flex-wrap:wrap">
   <!-- Distribution -->
-  <div class="sc">
+  <div class="sc" style="flex:2;min-width:380px;margin-bottom:0">
     <div class="sc-title">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       License Earning Distribution
@@ -1972,10 +1967,10 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
     <div class="ctrl-row">
       <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:center">
         <div class="ctrl-btns" id="distWindowBtns">
+          <button class="cbtn" onclick="setDistWindow(1,this)">1 Day</button>
+          <button class="cbtn on" onclick="setDistWindow(3,this)">3 Days</button>
           <button class="cbtn" onclick="setDistWindow(5,this)">5 Days</button>
-          <button class="cbtn on" onclick="setDistWindow(7,this)">7 Days</button>
-          <button class="cbtn" onclick="setDistWindow(14,this)">14 Days</button>
-          <button class="cbtn" onclick="setDistWindow(999,this)">All</button>
+          <button class="cbtn" onclick="setDistWindow(10,this)">10 Days</button>
         </div>
       </div>
       <div class="chart-stats" id="distStats"></div>
@@ -1983,15 +1978,23 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
     <canvas id="distCanvas" style="width:100%;display:block;cursor:crosshair" height="280"></canvas>
   </div>
 
-
-  <!-- Earnings Heatmap Calendar -->
-  <div class="sc" style="margin-top:.9rem">
-    <div class="sc-title">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-      Earnings Heatmap Calendar
+  <!-- Earnings Heatmap Calendar + Group Donut stacked -->
+  <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:.85rem">
+    <div class="sc" style="margin-bottom:0">
+      <div class="sc-title" style="font-size:.72rem">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Earnings Calendar
+      </div>
+      <div id="heatmapChart" style="overflow-x:auto;padding-bottom:.3rem"></div>
     </div>
-    <div class="sc-sub">GitHub-style · darker = more earned · hover for exact amount · red = offline</div>
-    <div id="heatmapChart" style="overflow-x:auto;padding-bottom:.5rem"></div>
+    <div class="sc" style="margin-bottom:0">
+      <div class="sc-title" style="font-size:.72rem">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20"/><path d="M12 12L12 2"/><path d="M12 12l7 7"/></svg>
+        Group Share
+      </div>
+      <canvas id="groupDonutCanvas" style="width:100%;display:block" height="110"></canvas>
+    </div>
+  </div>
   </div>
 
   <!-- Group Performance Radar -->
@@ -2212,13 +2215,6 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
   <!-- ═══ PAGE: ARCHIVE ═══ -->
   <div class="page-section" id="page-archive">
 
-  <!-- Export toolbar -->
-  <div style="display:flex;align-items:center;justify-content:flex-end;gap:.5rem;margin-bottom:1rem;padding-top:.8rem">
-    <span style="font-size:.62rem;color:var(--muted);font-weight:600;margin-right:.3rem">EXPORT</span>
-    <button class="cbtn" onclick="exportCSV()" style="font-size:.64rem;padding:.24rem .7rem">⬇ CSV</button>
-    <button class="cbtn" onclick="printReport()" style="font-size:.64rem;padding:.24rem .7rem">🖨 PDF</button>
-  </div>
-
   <!-- ── DETAILED HOW-TO GUIDE ── -->
   <div class="sc" style="border-left:4px solid #6366f1;margin-bottom:.9rem">
     <div class="sc-title" style="color:#6366f1">
@@ -2395,7 +2391,11 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
         <button class="sbtn" id="btn-today-desc" onclick="sortBy('today','desc')">High ↓</button>
         <button class="sbtn" id="btn-today-asc" onclick="sortBy('today','asc')">Low ↑</button>
       </div>
-      <div style="margin-left:auto;font-size:.6rem;color:var(--muted);font-style:italic" id="sortStatus"></div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:.4rem">
+        <button class="sbtn" id="btn-collapse-all" onclick="toggleAllGroups('collapse')" title="Collapse all groups">▲ Collapse</button>
+        <button class="sbtn" id="btn-expand-all" onclick="toggleAllGroups('expand')" title="Expand all groups">▼ Expand</button>
+        <span style="font-size:.6rem;color:var(--muted);font-style:italic" id="sortStatus"></span>
+      </div>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-bottom:.85rem;padding:.5rem 1rem;background:var(--surface2);border-radius:10px;border:1px solid var(--border)">
       <div style="display:flex;align-items:center;gap:.3rem">
@@ -2500,14 +2500,28 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
   <!-- ═══ PAGE: TOOLS ═══ -->
   <div class="page-section" id="page-tools">
 
-  <!-- Data Health Check - always visible at top -->
-  <div class="sc" style="border-left:4px solid #ef4444">
-    <div class="sc-title" style="color:#ef4444">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-      Data Health Check
-      <span style="font-size:.55rem;font-weight:400;color:var(--muted);margin-left:.5rem">runs automatically on data load</span>
+  <!-- ── EXPORT section ── -->
+  <div style="margin-bottom:.3rem;font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:.4rem 0">📤 Export</div>
+
+  <!-- Export Tools -->
+  <div class="sc" style="border-left:4px solid #06b6d4">
+    <div class="sc-title" style="color:#06b6d4">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Export
     </div>
-    <div id="healthCheckContent"><div style="color:var(--muted);font-size:.78rem">Load data to run health check.</div></div>
+    <div class="sc-sub">PDF report · printable summary · CSV data export</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;margin-top:.5rem">
+      <button onclick="exportPDFReport()" style="background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff;border:none;border-radius:12px;padding:1rem 1rem;font-size:.88rem;font-weight:800;cursor:pointer;box-shadow:0 3px 12px rgba(6,182,212,.35);text-align:center">
+        📄 PDF Report
+      </button>
+      <button onclick="printSummary()" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;border-radius:12px;padding:1rem 1rem;font-size:.88rem;font-weight:800;cursor:pointer;box-shadow:0 3px 12px rgba(16,185,129,.35);text-align:center">
+        🖨️ Print Summary
+      </button>
+      <button onclick="exportCSV()" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;border:none;border-radius:12px;padding:1rem 1rem;font-size:.88rem;font-weight:800;cursor:pointer;box-shadow:0 3px 12px rgba(139,92,246,.35);text-align:center">
+        📥 CSV Export
+      </button>
+    </div>
+    <div id="pdfStatus" style="margin-top:.5rem"></div>
   </div>
 
   <!-- ── TRACKING section ── -->
@@ -2530,6 +2544,9 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
       <div id="goalTrackerContent"><div style="color:var(--muted);font-size:.78rem">Enter a monthly target to see projections.</div></div>
     </div>
   </div>
+
+  <!-- ── MONITORING section ── -->
+  <div style="margin-top:.3rem;margin-bottom:.3rem;font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:.4rem 0">🔔 Monitoring</div>
 
   <!-- Earning Alerts -->
   <div class="sc" style="border-left:4px solid #f59e0b">
@@ -2571,6 +2588,16 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
     </div>
   </div>
 
+  <!-- Data Health Check -->
+  <div class="sc" style="border-left:4px solid #ef4444">
+    <div class="sc-title" style="color:#ef4444">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      Data Health Check
+      <span style="font-size:.55rem;font-weight:400;color:var(--muted);margin-left:.5rem">runs automatically on data load</span>
+    </div>
+    <div id="healthCheckContent"><div style="color:var(--muted);font-size:.78rem">Load data to run health check.</div></div>
+  </div>
+
   <!-- Node Health Dashboard -->
   <div class="sc" style="border-left:4px solid #3b82f6">
     <div class="sc-title" style="color:#3b82f6;cursor:pointer" onclick="toggleToolSection('nodeHealthSection')">
@@ -2582,44 +2609,6 @@ body.light .ld-kpi-val { background: none; -webkit-text-fill-color: #111; }
       <div class="sc-sub">Per-node uptime patterns, earnings efficiency, and underperforming leases</div>
       <div id="nodeHealthContent"><div style="color:var(--muted);font-size:.78rem">Load data to see node health.</div></div>
     </div>
-  </div>
-
-  <!-- ── EXPORT section ── -->
-  <div style="margin-top:.3rem;margin-bottom:.3rem;font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:.4rem 0">📤 Export</div>
-
-  <!-- PDF Export -->
-  <div class="sc" style="border-left:4px solid #06b6d4">
-    <div class="sc-title" style="color:#06b6d4">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      Export PDF Report
-    </div>
-    <div class="sc-sub">Generate a clean printable summary of your earnings, nodes, and withdrawals</div>
-    <button onclick="exportPDFReport()" style="background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff;border:none;border-radius:10px;padding:.65rem 1.4rem;font-size:.78rem;font-weight:800;cursor:pointer;box-shadow:0 3px 12px rgba(6,182,212,.35)">
-      📄 Generate PDF Report
-    </button>
-    <div id="pdfStatus" style="margin-top:.5rem"></div>
-  </div>
-
-  <!-- Printable One-Page Summary -->
-  <div class="sc" style="border-left:4px solid #10b981">
-    <div class="sc-title" style="color:#10b981">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-      Printable Summary
-    </div>
-    <div class="sc-sub">One-page report card — top KPIs, node breakdown, and best/worst performers</div>
-    <button onclick="printSummary()" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;border-radius:10px;padding:.65rem 1.4rem;font-size:.78rem;font-weight:800;cursor:pointer;box-shadow:0 3px 12px rgba(16,185,129,.35)">
-      🖨️ Print Summary
-    </button>
-  </div>
-
-  <!-- Comparison Snapshot -->
-  <div class="sc" style="border-left:4px solid #f59e0b">
-    <div class="sc-title" style="color:#f59e0b">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
-      Week vs Week Comparison
-    </div>
-    <div class="sc-sub">Compare this week's performance against last week</div>
-    <div id="comparisonContent"><div style="color:var(--muted);font-size:.78rem">Load data to see comparison.</div></div>
   </div>
 
   <!-- ── HELP section ── -->
@@ -2931,7 +2920,7 @@ window.addEventListener('beforeunload', function() {
 Object.defineProperty(window, '__rawData', { get: function() { return '⛔ Direct data access blocked'; }, configurable: false });
 
 // ── VERSION + INTEGRITY ──
-const DASHBOARD_VERSION = '4.20';
+const DASHBOARD_VERSION = '4.3';
 
 const DEBUG = false;  // set true to enable console logging
 
@@ -3064,7 +3053,7 @@ function toggleGrossView() {
   const btn = document.getElementById('grossBtn');
   if (btn) {
     btn.classList.toggle('on', viewMode === 'gross');
-    btn.textContent = viewMode === 'gross' ? '📊 UNO + ULO' : '💰 UNO Earnings';
+    btn.textContent = '🍄'; btn.title = viewMode === 'gross' ? 'Switch to UNO Earnings' : 'Switch to UNO + ULO';
   }
   const indicator = document.getElementById('grossIndicator');
   if (indicator) indicator.style.display = viewMode === 'gross' ? '' : 'none';
@@ -3270,25 +3259,29 @@ const fileInput  = document.getElementById('fileInput');
 const namesInput = document.getElementById('fileInputNames');
 const withInput  = document.getElementById('fileInputWith');
 
-/* ── Earnings drop zone ── */
-dropZone.addEventListener('dragover',  e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
-dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); handleDataFiles(e.dataTransfer.files); });
-fileInput.addEventListener('change', e => handleDataFiles(e.target.files));
+/* ── Legacy individual drop zones (guarded — may not exist in unified upload mode) ── */
+if (dropZone) {
+  dropZone.addEventListener('dragover',  e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); handleDataFiles(e.dataTransfer.files); });
+}
+if (fileInput) fileInput.addEventListener('change', e => handleDataFiles(e.target.files));
 
-/* ── Naming file drop zone ── */
 const dropZoneNames = document.getElementById('dropZoneNames');
-dropZoneNames.addEventListener('dragover',  e => { e.preventDefault(); dropZoneNames.classList.add('drag-over'); });
-dropZoneNames.addEventListener('dragleave', () => dropZoneNames.classList.remove('drag-over'));
-dropZoneNames.addEventListener('drop', e => { e.preventDefault(); dropZoneNames.classList.remove('drag-over'); handleNamingFile(e.dataTransfer.files[0]); });
-namesInput.addEventListener('change', e => { if (e.target.files[0]) handleNamingFile(e.target.files[0]); });
+if (dropZoneNames) {
+  dropZoneNames.addEventListener('dragover',  e => { e.preventDefault(); dropZoneNames.classList.add('drag-over'); });
+  dropZoneNames.addEventListener('dragleave', () => dropZoneNames.classList.remove('drag-over'));
+  dropZoneNames.addEventListener('drop', e => { e.preventDefault(); dropZoneNames.classList.remove('drag-over'); handleNamingFile(e.dataTransfer.files[0]); });
+}
+if (namesInput) namesInput.addEventListener('change', e => { if (e.target.files[0]) handleNamingFile(e.target.files[0]); });
 
-/* ── Withdrawal drop zone ── */
 const dropZoneWith = document.getElementById('dropZoneWith');
-dropZoneWith.addEventListener('dragover',  e => { e.preventDefault(); dropZoneWith.classList.add('drag-over'); });
-dropZoneWith.addEventListener('dragleave', () => dropZoneWith.classList.remove('drag-over'));
-dropZoneWith.addEventListener('drop', e => { e.preventDefault(); dropZoneWith.classList.remove('drag-over'); handleWithdrawFiles(e.dataTransfer.files); });
-withInput.addEventListener('change', e => handleWithdrawFiles(e.target.files));
+if (dropZoneWith) {
+  dropZoneWith.addEventListener('dragover',  e => { e.preventDefault(); dropZoneWith.classList.add('drag-over'); });
+  dropZoneWith.addEventListener('dragleave', () => dropZoneWith.classList.remove('drag-over'));
+  dropZoneWith.addEventListener('drop', e => { e.preventDefault(); dropZoneWith.classList.remove('drag-over'); handleWithdrawFiles(e.dataTransfer.files); });
+}
+if (withInput) withInput.addEventListener('change', e => handleWithdrawFiles(e.target.files));
 
 /* ── Unified Upload All zone ── */
 const dropZoneAll = document.getElementById('dropZoneAll');
@@ -3387,7 +3380,7 @@ function handleNamingFile(file) {
     dynamicLeaseMap = parsed;
     const count = Object.keys(parsed).length;
     document.getElementById('namesStatus').innerHTML = `<span style="color:#10b981">✓ ${count} leases mapped</span>`;
-    dropZoneNames.style.borderColor = '#10b981';
+    if(dropZoneNames) dropZoneNames.style.borderColor = '#10b981';
   };
   reader.readAsText(file);
 }
@@ -3607,7 +3600,7 @@ function handleWithdrawFiles(files) {
         const total = Object.values(withdrawFiles).flat().length;
         const withEl = document.getElementById('withStatus');
         if (withEl) withEl.innerHTML = `<span style="color:#10b981">✓ ${Object.keys(withdrawFiles).length} file(s) · ${total} entries</span>`;
-        dropZoneWith.style.borderColor = '#16a34a';
+        if(dropZoneWith) dropZoneWith.style.borderColor = '#16a34a';
         const errs = results.filter(r => r.error);
         if (errs.length && DEBUG) errs.forEach(e => console.warn('[UNITY] Withdrawal parse error:', e.name, e.error));
       }
@@ -3655,8 +3648,8 @@ function resetDashboard() {
   fileInput.value = ''; namesInput.value = ''; withInput.value = '';
   document.getElementById('namesStatus').textContent = '';
   document.getElementById('withStatus').textContent = '';
-  document.getElementById('dropZoneNames').style.borderColor = '';
-  document.getElementById('dropZoneWith').style.borderColor = '';
+  var dzn = document.getElementById('dropZoneNames'); if (dzn) dzn.style.borderColor = '';
+  var dzw = document.getElementById('dropZoneWith'); if (dzw) dzw.style.borderColor = '';
   updateSlots([]);
   document.getElementById('topBar').style.display = 'none';
 
@@ -4333,13 +4326,16 @@ function buildDashboard() {
   allData.sort((a,b) => a.completedAt < b.completedAt ? -1 : 1);
 
   // Extract unique nodes from data
+  var _savedNodeNames = {};
+  Object.keys(nodeMap).forEach(function(nid) { if (nodeMap[nid].name) _savedNodeNames[nid] = nodeMap[nid].name; });
   nodeMap = {};
   allData.forEach(r => {
     const nid = r.nodeId;
     if (!nid) return;
     if (!nodeMap[nid]) {
-      // Try to load saved name from localStorage
-      nodeMap[nid] = { id: nid, name: 'Node ' + (Object.keys(nodeMap).length + 1), licenses: new Set(), earnings: 0 };
+      // Restore saved name if available, otherwise generate default
+      var savedName = _savedNodeNames[nid] || 'Node ' + (Object.keys(nodeMap).length + 1);
+      nodeMap[nid] = { id: nid, name: savedName, licenses: new Set(), earnings: 0 };
     }
     nodeMap[nid].licenses.add(r.licenseId);
     nodeMap[nid].earnings += adjEarn(r.amountMicros,(r.licenseId||'').slice(-4),(r.completedAt||'').slice(0,10));
@@ -4518,17 +4514,6 @@ function buildDashboard() {
     `<span style="opacity:.5;white-space:nowrap" title="${rawNames.join(', ')}">${shortNames}</span>`);
   document.getElementById('hdrSub').style.cssText = 'display:flex;align-items:center;flex-wrap:wrap;gap:.1rem;font-size:.58rem;color:var(--text2);margin:.1rem 0 0;line-height:1.3';
 
-  /* ── Legend ── */
-  const legendRow = document.getElementById('legendRow');
-  legendRow.innerHTML = '';
-  getGroupsAll().forEach(g => {
-    const col = grpCol(g);
-    legendRow.innerHTML += `<div class="leg">
-      <div class="leg-swatch" style="background:${col}"></div>
-      ${grpLabel(g)}
-    </div>`;
-  });
-
   /* ── KPI Row 1 ── */
   // KPI icons
   const KPI_ICONS = {
@@ -4682,8 +4667,8 @@ function buildDashboard() {
   renderWithdrawals(allTotal);
   buildArchiveBanner();
   renderDailyBar();
-  renderHeatmap();
-  renderRadar(); initRadarHover();
+  renderHeatmap(); if(typeof renderGroupDonut==="function") renderGroupDonut();
+  renderRadar(); initRadarHover(); if(typeof renderGroupDonut==="function") renderGroupDonut();
   renderWoW();
   loadNotes();
   renderDist();
@@ -4700,7 +4685,7 @@ function buildDashboard() {
   var sBtn = document.getElementById('shareBtn');
   if (sBtn) sBtn.style.display = '';
   let _resizeTimer;
-  window.addEventListener('resize', () => { clearTimeout(_resizeTimer); _resizeTimer = setTimeout(() => { syncTopBarPadding(); renderDailyBar(); renderHeatmap(); renderRadar(); initRadarHover(); renderDist(); try{renderDist('easyDistCanvas')}catch(e){} renderTrend(); renderMonthChart(); if(typeof buildDOWChart==='function') buildDOWChart(allData,datesSorted); }, 150); });
+  window.addEventListener('resize', () => { clearTimeout(_resizeTimer); _resizeTimer = setTimeout(() => { syncTopBarPadding(); renderDailyBar(); renderHeatmap(); if(typeof renderGroupDonut==="function") renderGroupDonut(); renderRadar(); initRadarHover(); if(typeof renderGroupDonut==="function") renderGroupDonut(); renderDist(); try{renderDist('easyDistCanvas')}catch(e){} renderTrend(); renderMonthChart(); if(typeof buildDOWChart==='function') buildDOWChart(allData,datesSorted); }, 150); });
  } catch(err) {
   console.error('[buildDashboard] Error:', err);
   showToast('⚠️', 'Dashboard Error', 'Something went wrong — check console for details', '#ef4444');
@@ -4732,13 +4717,13 @@ function setDist(i, b) {
 }
 
 /* ── DIST WINDOW SIZE (days to show) ── */
-let distWindow = 7; // show last N days — change via buttons
+let distWindow = 3; // show last N days — change via buttons
 
 function renderDist(targetId) {
   const cv = document.getElementById(targetId || 'distCanvas');
   if (!cv) return;
   const W = cv.parentElement.clientWidth || 900;
-  const H = parseInt(cv.getAttribute('height'), 10) || 360;
+  const H = Math.min(parseInt(cv.getAttribute('height'), 10) || 360, 350);
   cv.width = W * (window.devicePixelRatio||1);
   cv.height = H * (window.devicePixelRatio||1);
   cv.style.width = W + 'px';
@@ -5433,36 +5418,52 @@ function buildComparison() {
   var today = datesSorted[datesSorted.length - 1];
   var td = new Date(today);
   var thisWeek = [], lastWeek = [];
-  for (var i = 0; i < 7; i++) {
+  for (var i = 6; i >= 0; i--) {
     var d1 = new Date(td); d1.setDate(td.getDate() - i);
     var d2 = new Date(td); d2.setDate(td.getDate() - 7 - i);
     var iso1 = d1.toISOString().slice(0,10), iso2 = d2.toISOString().slice(0,10);
     thisWeek.push(iso1); lastWeek.push(iso2);
   }
   var thisTotal = 0, lastTotal = 0, thisTxns = 0, lastTxns = 0;
-  thisWeek.forEach(function(d) { (byDate[d]||[]).forEach(function(r) { thisTotal += adjEarn(r.amountMicros,(r.licenseId||'').slice(-4),d); thisTxns++; }); });
-  lastWeek.forEach(function(d) { (byDate[d]||[]).forEach(function(r) { lastTotal += adjEarn(r.amountMicros,(r.licenseId||'').slice(-4),d); lastTxns++; }); });
+  var thisDays = [], lastDays = [];
+  thisWeek.forEach(function(d) { var dayT = 0; (byDate[d]||[]).forEach(function(r) { var e = adjEarn(r.amountMicros,(r.licenseId||'').slice(-4),d); dayT += e; thisTxns++; }); thisTotal += dayT; thisDays.push(dayT); });
+  lastWeek.forEach(function(d) { var dayT = 0; (byDate[d]||[]).forEach(function(r) { var e = adjEarn(r.amountMicros,(r.licenseId||'').slice(-4),d); dayT += e; lastTxns++; }); lastTotal += dayT; lastDays.push(dayT); });
   var earnDiff = lastTotal > 0 ? ((thisTotal - lastTotal)/lastTotal*100) : 0;
   var txnDiff = lastTxns > 0 ? ((thisTxns - lastTxns)/lastTxns*100) : 0;
   var earnCol = earnDiff >= 0 ? 'var(--up)' : 'var(--down)';
   var txnCol = txnDiff >= 0 ? 'var(--up)' : 'var(--down)';
+  var thisAvg = thisTotal / 7, lastAvg = lastTotal / 7;
+  var maxDay = Math.max.apply(null, thisDays.concat(lastDays).concat([0.001]));
+  var dayLabels = ['M','T','W','T','F','S','S'];
 
-  el.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-top:.5rem">
-    <div style="background:var(--surface2);border-radius:10px;padding:.75rem 1rem;border:1px solid var(--border)">
-      <div style="font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:.3rem">This Week</div>
-      <div style="font-size:1.1rem;font-weight:700;font-family:var(--font-mono),monospace">$${thisTotal.toFixed(4)}</div>
-      <div style="font-size:.65rem;color:var(--muted)">${thisTxns} txns</div>
-    </div>
-    <div style="background:var(--surface2);border-radius:10px;padding:.75rem 1rem;border:1px solid var(--border)">
-      <div style="font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:.3rem">Last Week</div>
-      <div style="font-size:1.1rem;font-weight:700;font-family:var(--font-mono),monospace">$${lastTotal.toFixed(4)}</div>
-      <div style="font-size:.65rem;color:var(--muted)">${lastTxns} txns</div>
-    </div>
-  </div>
-  <div style="margin-top:.6rem;display:flex;gap:1rem;font-size:.75rem">
-    <span>Earnings: <strong style="color:${earnCol}">${earnDiff>=0?'+':''}${earnDiff.toFixed(1)}%</strong></span>
-    <span>Txns: <strong style="color:${txnCol}">${txnDiff>=0?'+':''}${txnDiff.toFixed(1)}%</strong></span>
-  </div>`;
+  var barsHtml = '<div style="display:flex;gap:3px;align-items:flex-end;height:120px;margin-top:.5rem">';
+  for (var i = 0; i < 7; i++) {
+    var h1 = Math.max(3, (thisDays[i]/maxDay)*112);
+    var h2 = Math.max(3, (lastDays[i]/maxDay)*112);
+    barsHtml += '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px">' +
+      '<div style="display:flex;gap:2px;align-items:flex-end;width:100%;height:112px">' +
+      '<div style="flex:1;height:' + h2 + 'px;background:#8b5cf6;border-radius:3px 3px 0 0;opacity:.45" title="Last: $' + lastDays[i].toFixed(2) + '"></div>' +
+      '<div style="flex:1;height:' + h1 + 'px;background:' + (thisDays[i] >= lastDays[i] ? 'var(--up)' : 'var(--down)') + ';border-radius:3px 3px 0 0;opacity:.85" title="This: $' + thisDays[i].toFixed(2) + '"></div>' +
+      '</div>' +
+      '<div style="font-size:.5rem;color:var(--muted);font-weight:600">' + dayLabels[i] + '</div></div>';
+  }
+  barsHtml += '</div>';
+
+  el.innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">' +
+    '<div style="background:var(--surface2);border-radius:8px;padding:.5rem .65rem;border:1px solid var(--border)">' +
+    '<div style="font-size:.5rem;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:.15rem">This Week</div>' +
+    '<div style="font-size:1rem;font-weight:700;font-family:var(--font-mono),monospace">$' + thisTotal.toFixed(2) + '</div>' +
+    '<div style="font-size:.55rem;color:var(--muted)">' + thisTxns + ' txns · $' + thisAvg.toFixed(2) + '/day</div></div>' +
+    '<div style="background:var(--surface2);border-radius:8px;padding:.5rem .65rem;border:1px solid var(--border)">' +
+    '<div style="font-size:.5rem;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:.15rem">Last Week</div>' +
+    '<div style="font-size:1rem;font-weight:700;font-family:var(--font-mono),monospace">$' + lastTotal.toFixed(2) + '</div>' +
+    '<div style="font-size:.55rem;color:var(--muted)">' + lastTxns + ' txns · $' + lastAvg.toFixed(2) + '/day</div></div></div>' +
+    barsHtml +
+    '<div style="display:flex;justify-content:center;gap:.6rem;margin-top:.3rem;font-size:.55rem;color:var(--muted)">' +
+    '<span><span style="color:#8b5cf6">■</span> Last week</span><span><span style="color:var(--up)">■</span> This week</span></div>' +
+    '<div style="margin-top:.4rem;display:flex;gap:.8rem;font-size:.7rem;justify-content:center">' +
+    '<span>Earnings: <strong style="color:' + earnCol + '">' + (earnDiff>=0?'+':'') + earnDiff.toFixed(1) + '%</strong></span>' +
+    '<span>Txns: <strong style="color:' + txnCol + '">' + (txnDiff>=0?'+':'') + txnDiff.toFixed(1) + '%</strong></span></div>';
 }
 
 // ── Mini sparkline SVG for lease table ──
@@ -5566,6 +5567,25 @@ function exportLeaseCSV() {
   showToast('📥', 'CSV Exported', leaseData.length + ' leases', '#10b981');
 }
 
+var _collapsedGroups = new Set();
+
+function toggleLeaseGroup(grp) {
+  if (_collapsedGroups.has(grp)) _collapsedGroups.delete(grp);
+  else _collapsedGroups.add(grp);
+  renderLeaseTable();
+}
+
+function toggleAllGroups(action) {
+  if (action === 'collapse') {
+    var groups = {};
+    leaseData.forEach(function(l) { groups[l.group] = true; });
+    Object.keys(groups).forEach(function(g) { _collapsedGroups.add(g); });
+  } else {
+    _collapsedGroups.clear();
+  }
+  renderLeaseTable();
+}
+
 function renderLeaseTable() {
   const {view, earnDir, todayDir, primarySort} = sortState;
   const sortDir = primarySort === 'today' ? (todayDir||'desc') : earnDir;
@@ -5630,16 +5650,21 @@ function renderLeaseTable() {
     groupsSorted.forEach(grp => {
       const col=grpCol(grp), bg=grpBg(grp), lbl=grpLabel(grp);
       const gt=groupTotals[grp]||0, gc=grouped[grp].length;
-      tbody.innerHTML += `<tr><td colspan="8" style="background:${bg};padding:.42rem .85rem;border-top:2px solid ${col};border-bottom:1px solid ${col}22">
+      const isCollapsed = _collapsedGroups.has(grp);
+      const arrow = isCollapsed ? '▶' : '▼';
+      tbody.innerHTML += `<tr class="grp-hdr-row" data-grp="${sanitizeText(grp)}" onclick="toggleLeaseGroup('${sanitizeText(grp)}')" style="cursor:pointer"><td colspan="8" style="background:${bg};padding:.42rem .85rem;border-top:2px solid ${col};border-bottom:1px solid ${col}22">
         <div style="display:flex;align-items:center;gap:.7rem">
+          <span style="font-size:.6rem;color:${col};transition:transform .2s">${arrow}</span>
           <div style="width:12px;height:12px;border-radius:3px;background:${col}"></div>
           <span style="font-size:.7rem;font-weight:700;color:${col};text-transform:uppercase;letter-spacing:.1em">${lbl}</span>
           <span style="font-size:.63rem;color:${col};opacity:.65;font-weight:600">${gc} lease${gc!==1?'s':''}</span>
           <span style="margin-left:auto;font-size:.7rem;font-weight:700;color:${col};font-family:var(--font-mono), monospace">$${gt.toFixed(4)} total</span>
         </div></td></tr>`;
-      grouped[grp]
-        .sort((a,b) => sortDir==='asc' ? leaseSortVal(a)-leaseSortVal(b) : leaseSortVal(b)-leaseSortVal(a))
-        .forEach(l => { tbody.innerHTML += makeLeaseRow(l, grp); });
+      if (!isCollapsed) {
+        grouped[grp]
+          .sort((a,b) => sortDir==='asc' ? leaseSortVal(a)-leaseSortVal(b) : leaseSortVal(b)-leaseSortVal(a))
+          .forEach(l => { tbody.innerHTML += makeLeaseRow(l, grp); });
+      }
     });
   }
 
@@ -5890,7 +5915,7 @@ function dailyBarHover(cv, e) {
   const mo = parseInt(p[1],10), dy = parseInt(p[2],10);
   const dow = new Date(parseInt(p[0],10), mo-1, dy).getDay();
   const txns = (byDate[hit.d]||[]).length;
-  const diff = ((hit.v - hit.avg7) / hit.avg7 * 100);
+  const diff = hit.avg7 > 0 ? ((hit.v - hit.avg7) / hit.avg7 * 100) : 0;
   const diffStr = (diff >= 0 ? '+' : '') + diff.toFixed(1) + '%';
   const diffCol = diff >= 0 ? '#10b981' : '#ef4444';
 
@@ -5942,7 +5967,7 @@ document.getElementById('dailyBarCanvas').addEventListener('click', function(e) 
 /* ═══════════════════════════════════════════════════════
    EARNINGS HEATMAP CALENDAR
 ═══════════════════════════════════════════════════════ */
-function renderHeatmap(targetId) {
+function renderHeatmap(targetId, cellOverride) {
   const el = document.getElementById(targetId || 'heatmapChart');
   if (!el || !datesSorted || !datesSorted.length || !byDate) return;
 
@@ -6000,7 +6025,7 @@ function renderHeatmap(targetId) {
 
   const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const DOW_LABELS = ['S','M','T','W','T','F','S'];
-  const CELL = 14, GAP = 2;
+  const CELL = cellOverride || 18, GAP = Math.max(3, Math.round(CELL * 0.4));
 
   // Build month labels
   let monthLabels = '<div style="display:flex;margin-left:26px;margin-bottom:3px;gap:0">';
@@ -6037,7 +6062,7 @@ function renderHeatmap(targetId) {
         const p = cell.iso.split('-');
         const label = `${DOW2[cell.d.getDay()]} ${MON2[cell.d.getMonth()]} ${cell.d.getDate()}`;
         const valStr = cell.v > 0 ? `$${cell.v.toFixed(4)}` : 'No earnings';
-        grid += `<div class="hm-cell" style="background:${col}"
+        grid += `<div class="hm-cell" style="width:${CELL}px;height:${CELL}px;background:${col}"
           data-tip="${label}|${valStr}"
           onmouseenter="showHmTip(event,this)"
           onmouseleave="hideHmTip()"></div>`;
@@ -6097,6 +6122,113 @@ function moveTip(tip, e) {
 /* ═══════════════════════════════════════════════════════
    HOUR OF DAY CHART
 ═══════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   GROUP DONUT CHART
+═══════════════════════════════════════════════════════ */
+function renderGroupDonut() {
+  var cv = document.getElementById('groupDonutCanvas');
+  if (!cv || !leaseData || !leaseData.length) return;
+  var W = cv.parentElement.clientWidth || 200;
+  var H = parseInt(cv.getAttribute('height'), 10) || 180;
+  var dpr = window.devicePixelRatio || 1;
+  cv.width = W * dpr; cv.height = H * dpr;
+  cv.style.width = W + 'px'; cv.style.height = H + 'px';
+  var c = cv.getContext('2d');
+  c.scale(dpr, dpr);
+  c.clearRect(0, 0, W, H);
+
+  // Aggregate earnings by group
+  var groups = {};
+  var total = 0;
+  leaseData.forEach(function(l) {
+    var g = l.group || 'Unassigned';
+    groups[g] = (groups[g] || 0) + l.alltime;
+    total += l.alltime;
+  });
+  if (total <= 0) return;
+
+  var sorted = Object.entries(groups).sort(function(a, b) { return b[1] - a[1]; });
+  var cx = W / 2, cy = H / 2;
+  var outerR = Math.min(cx - 6, cy - 6);
+  var innerR = outerR * 0.52;
+  var startAngle = -Math.PI / 2;
+
+  // Store slices for hover detection
+  var _donutSlices = [];
+
+  // Draw slices
+  sorted.forEach(function(entry) {
+    var g = entry[0], val = entry[1];
+    var slice = (val / total) * Math.PI * 2;
+    var col = grpCol(g);
+    c.beginPath();
+    c.moveTo(cx + Math.cos(startAngle) * innerR, cy + Math.sin(startAngle) * innerR);
+    c.arc(cx, cy, outerR, startAngle, startAngle + slice);
+    c.arc(cx, cy, innerR, startAngle + slice, startAngle, true);
+    c.closePath();
+    c.fillStyle = col;
+    c.fill();
+    c.strokeStyle = document.body.classList.contains('light') ? 'rgba(255,255,255,.8)' : 'rgba(0,0,0,.3)';
+    c.lineWidth = 1.5;
+    c.stroke();
+    _donutSlices.push({ g: g, val: val, startAngle: startAngle, endAngle: startAngle + slice, col: col });
+    startAngle += slice;
+  });
+
+  // Center total
+  var isDark = !document.body.classList.contains('light');
+  c.fillStyle = isDark ? '#d4d8e3' : '#1a2c38';
+  c.font = '700 ' + Math.max(10, Math.round(outerR * 0.22)) + 'px var(--font-mono), monospace';
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillText('$' + total.toFixed(2), cx, cy - 4);
+  c.fillStyle = isDark ? '#5c6378' : '#9ca3af';
+  c.font = '600 ' + Math.max(7, Math.round(outerR * 0.14)) + 'px sans-serif';
+  c.fillText('TOTAL', cx, cy + 8);
+
+  // Hover with popup tooltip
+  cv.style.cursor = 'crosshair';
+  cv.onmousemove = function(e) {
+    var rect = cv.getBoundingClientRect();
+    var mx = e.clientX - rect.left, my = e.clientY - rect.top;
+    var dist = Math.hypot(mx - cx, my - cy);
+    var tip = document.getElementById('donutTip');
+    if (!tip) {
+      tip = document.createElement('div');
+      tip.id = 'donutTip';
+      tip.style.cssText = 'position:fixed;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.45rem .65rem;font-size:.65rem;pointer-events:none;z-index:99999;box-shadow:0 4px 16px rgba(0,0,0,.2);display:none;white-space:nowrap';
+      document.body.appendChild(tip);
+    }
+    if (dist < innerR || dist > outerR) { tip.style.display = 'none'; return; }
+    var angle = Math.atan2(my - cy, mx - cx);
+    for (var i = 0; i < _donutSlices.length; i++) {
+      var sl = _donutSlices[i];
+      // Normalize angles for comparison
+      var a = angle, s = sl.startAngle, en = sl.endAngle;
+      while (a < s) a += Math.PI * 2;
+      while (a > s + Math.PI * 2) a -= Math.PI * 2;
+      if (a >= s && a < en) {
+        var lbl = grpLabel ? grpLabel(sl.g) : sl.g;
+        var pct = (sl.val / total * 100).toFixed(1);
+        var leaseCount = leaseData.filter(function(l) { return (l.group || 'Unassigned') === sl.g; }).length;
+        tip.style.borderLeft = '3px solid ' + sl.col;
+        tip.innerHTML = '<div style="font-weight:700;color:' + sl.col + '">' + sanitizeText(lbl) + '</div>' +
+          '<div style="color:var(--text2);margin-top:.2rem">' +
+          '<strong>$' + sl.val.toFixed(4) + '</strong> · ' + pct + '%<br>' +
+          leaseCount + ' leases · $' + (sl.val / Math.max(leaseCount, 1)).toFixed(4) + '/lease</div>';
+        tip.style.display = 'block';
+        tip.style.left = (e.clientX + 12) + 'px';
+        tip.style.top = (e.clientY - 20) + 'px';
+        return;
+      }
+    }
+    tip.style.display = 'none';
+  };
+  cv.onmouseleave = function() {
+    var tip = document.getElementById('donutTip');
+    if (tip) tip.style.display = 'none';
+  };
+}
+
 function renderRadar() {
   const cv = document.getElementById('radarCanvas');
   if (!cv || !allData || !allData.length) return;
@@ -6244,18 +6376,38 @@ function renderRadar() {
     });
   });
 
-  // Legend (right side)
-  const lx = W * 0.86;
-  let ly   = H * 0.18;
-  c.font = `700 ${Math.max(9, Math.round(W*0.013))}px var(--font-heading), sans-serif`;
-  finalNames.forEach(g => {
-    const col = grpCol(g);
-    c.fillStyle = col;
-    c.fillRect(lx, ly - 6, 10, 10);
-    c.fillStyle = textCol;
-    c.textAlign = 'left'; c.textBaseline = 'middle';
-    c.fillText(g, lx + 14, ly);
-    ly += 20;
+  // Legend — built as HTML overlay instead of canvas-drawn
+  var legendEl = document.getElementById('radarLegend');
+  if (!legendEl) {
+    legendEl = document.createElement('div');
+    legendEl.id = 'radarLegend';
+    legendEl.style.cssText = 'position:absolute;right:1rem;top:1.5rem;display:flex;flex-direction:column;gap:.35rem;z-index:10';
+    cv.parentElement.style.position = 'relative';
+    cv.parentElement.appendChild(legendEl);
+  }
+  legendEl.innerHTML = finalNames.map(function(g) {
+    var col = grpCol(g);
+    var s = scores[g];
+    return '<div class="radar-leg-item" data-group="' + sanitizeText(g) + '" style="display:flex;align-items:center;gap:.4rem;padding:.3rem .5rem;border-radius:6px;cursor:pointer;transition:background .15s;background:var(--surface2)">' +
+      '<div style="width:10px;height:10px;border-radius:3px;background:' + col + ';flex-shrink:0"></div>' +
+      '<span style="font-size:.7rem;font-weight:700;color:var(--text)">' + sanitizeText(grpLabel(g)) + '</span>' +
+      '</div>';
+  }).join('');
+
+  // Store state globally for hover redraws
+  window._radarState = { finalNames: finalNames, normalized: normalized, scores: scores, AXES: AXES, N: N, CX: CX, CY: CY, R: R, angleStep: angleStep, startAngle: startAngle, W: W, H: H, gridCol: gridCol, labelCol: labelCol, textCol: textCol, isDark: isDark };
+
+  // Hover handlers on legend items
+  legendEl.querySelectorAll('.radar-leg-item').forEach(function(item) {
+    item.addEventListener('mouseenter', function() {
+      var g = this.dataset.group;
+      _redrawRadarHighlight(g);
+      _showRadarDetail(g, this);
+    });
+    item.addEventListener('mouseleave', function() {
+      _redrawRadarHighlight(null);
+      _hideRadarDetail();
+    });
   });
 
   // Axis score labels at 25/50/75/100%
@@ -6268,40 +6420,110 @@ function renderRadar() {
   });
 }
 
+function _redrawRadarHighlight(highlightGroup) {
+  var cv = document.getElementById('radarCanvas');
+  if (!cv || !window._radarState) return;
+  var s = window._radarState;
+  var dpr = window.devicePixelRatio || 1;
+  var c = cv.getContext('2d');
+  c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  c.clearRect(0, 0, s.W, s.H);
+
+  var pt = function(r, i) {
+    return { x: s.CX + r * Math.cos(s.startAngle + i * s.angleStep), y: s.CY + r * Math.sin(s.startAngle + i * s.angleStep) };
+  };
+
+  // Grid rings
+  [0.25, 0.5, 0.75, 1.0].forEach(function(frac) {
+    c.beginPath();
+    for (var i = 0; i < s.N; i++) { var p = pt(s.R * frac, i); i === 0 ? c.moveTo(p.x, p.y) : c.lineTo(p.x, p.y); }
+    c.closePath(); c.strokeStyle = s.gridCol; c.lineWidth = 1; c.stroke();
+  });
+
+  // Spokes + labels
+  for (var i = 0; i < s.N; i++) {
+    var outer = pt(s.R, i);
+    c.beginPath(); c.moveTo(s.CX, s.CY); c.lineTo(outer.x, outer.y);
+    c.strokeStyle = s.gridCol; c.lineWidth = 1; c.stroke();
+    var lp = pt(s.R * 1.18, i);
+    c.fillStyle = s.labelCol;
+    c.font = '600 ' + Math.max(9, Math.round(s.W * 0.013)) + 'px var(--font-heading), sans-serif';
+    c.textAlign = lp.x > s.CX + 5 ? 'left' : lp.x < s.CX - 5 ? 'right' : 'center';
+    c.textBaseline = lp.y < s.CY ? 'bottom' : 'top';
+    c.fillText(s.AXES[i], lp.x, lp.y);
+  }
+
+  // Group shapes
+  s.finalNames.forEach(function(g) {
+    var col = grpCol(g);
+    var vals = s.normalized[g];
+    var isHighlighted = !highlightGroup || g === highlightGroup;
+    var alpha = isHighlighted ? 0.9 : 0.08;
+
+    c.beginPath();
+    vals.forEach(function(v, i) { var p = pt(s.R * v, i); i === 0 ? c.moveTo(p.x, p.y) : c.lineTo(p.x, p.y); });
+    c.closePath();
+    c.strokeStyle = col; c.lineWidth = isHighlighted ? 2.5 : 1;
+    c.globalAlpha = alpha; c.stroke();
+    c.fillStyle = col;
+    c.globalAlpha = isHighlighted ? 0.18 : 0.03; c.fill();
+    c.globalAlpha = 1;
+
+    // Dots on highlighted group
+    if (isHighlighted && highlightGroup) {
+      vals.forEach(function(v, i) {
+        var p = pt(s.R * v, i);
+        c.beginPath(); c.arc(p.x, p.y, 5, 0, Math.PI * 2);
+        c.fillStyle = col; c.globalAlpha = 0.9; c.fill();
+        c.strokeStyle = s.isDark ? '#242836' : '#fff'; c.lineWidth = 2; c.stroke();
+        c.globalAlpha = 1;
+      });
+    }
+  });
+
+  // Score labels
+  c.fillStyle = s.isDark ? 'rgba(255,255,255,.18)' : 'rgba(0,0,0,.2)';
+  c.font = Math.max(8, Math.round(s.W * 0.011)) + 'px monospace';
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  [0.25, 0.5, 0.75, 1.0].forEach(function(frac) {
+    var p = pt(s.R * frac, 0);
+    c.fillText(Math.round(frac * 100) + '%', p.x + 4, p.y - 6);
+  });
+}
+
+function _showRadarDetail(g, el) {
+  var s = window._radarState;
+  if (!s || !s.scores[g]) return;
+  var sc = s.scores[g];
+  var existing = document.getElementById('radarDetailPopup');
+  if (existing) existing.remove();
+  var popup = document.createElement('div');
+  popup.id = 'radarDetailPopup';
+  popup.style.cssText = 'position:absolute;right:' + (el.parentElement.offsetWidth + 8) + 'px;top:' + el.offsetTop + 'px;background:var(--bg);border:1px solid var(--border);border-right:3px solid ' + grpCol(g) + ';border-radius:10px;padding:.6rem .8rem;font-size:.65rem;z-index:20;box-shadow:var(--shadow-md);min-width:160px;pointer-events:none;white-space:nowrap';
+  popup.innerHTML =
+    '<div style="font-weight:700;margin-bottom:.3rem;color:' + grpCol(g) + '">' + sanitizeText(grpLabel(g)) + '</div>' +
+    '<div style="color:var(--text2);line-height:1.7">' +
+    'Avg Txn: <strong>$' + sc.avg.toFixed(4) + '</strong><br>' +
+    'Peak Day: <strong>$' + sc.peak.toFixed(4) + '</strong><br>' +
+    'Active Rate: <strong>' + (sc.activeR * 100).toFixed(0) + '%</strong><br>' +
+    'Consistency: <strong>' + (sc.consistency * 100).toFixed(0) + '%</strong><br>' +
+    'Volume: <strong>' + Math.round(sc.volume).toLocaleString() + ' txns</strong>' +
+    '</div>';
+  el.parentElement.appendChild(popup);
+}
+
+function _hideRadarDetail() {
+  var p = document.getElementById('radarDetailPopup');
+  if (p) p.remove();
+}
+
 // Radar hover state
 let radarDots = [];
 function initRadarHover() {
-  const cv = document.getElementById('radarCanvas');
+  // Hover is now handled by legend items — no canvas hover needed
+  var cv = document.getElementById('radarCanvas');
   if (!cv) return;
-  cv.addEventListener('mousemove', function(e) {
-    const rect = cv.getBoundingClientRect();
-    const mx = e.clientX - rect.left, my = e.clientY - rect.top;
-    let found = null;
-    for (const d of radarDots) {
-      if (Math.hypot(mx - d.x, my - d.y) < 12) { found = d; break; }
-    }
-    const tip = document.getElementById('htip');
-    if (found) {
-      const axisLabels = {
-        'Avg Txn':     `Avg: $${found.raw.toFixed(4)}`,
-        'Peak Day':    `Peak: $${found.raw.toFixed(4)}`,
-        'Active Rate': `Active: ${(found.raw*100).toFixed(0)}% of days`,
-        'Consistency': `Consistency: ${(found.raw*100).toFixed(0)}%`,
-        'Volume':      `Txns: ${Math.round(found.raw).toLocaleString()}`
-      };
-      document.getElementById('htip-name').textContent = found.g;
-      document.getElementById('htip-grp').textContent  = found.axis;
-      document.getElementById('htip-val').textContent  = axisLabels[found.axis] || '';
-      tip.style.borderLeftColor = grpCol(found.g);
-      tip.style.display = 'block';
-      requestAnimationFrame(() => moveTip(e));
-    } else {
-      tip.style.display = 'none';
-    }
-  });
-  cv.addEventListener('mouseleave', () => {
-    document.getElementById('htip').style.display = 'none';
-  });
+  cv.style.cursor = 'default';
 }
 
 
@@ -6377,11 +6599,13 @@ let notesData = {};
 function loadNotes() {
   try {
     if (dynamicLeaseMap && dynamicLeaseMap.__notes) {
-      notesData = JSON.parse(JSON.stringify(dynamicLeaseMap.__notes));
-    } else {
-      notesData = {};
+      var saved = JSON.parse(JSON.stringify(dynamicLeaseMap.__notes));
+      // Merge — don't overwrite existing notes
+      Object.keys(saved).forEach(function(k) {
+        if (!notesData[k]) notesData[k] = saved[k];
+      });
     }
-  } catch(e) { notesData = {}; }
+  } catch(e) {}
 }
 
 // Sync notes back into dynamicLeaseMap so they export with the naming file
@@ -6413,29 +6637,6 @@ function hideUnsavedBanner() {
   b.classList.add('hiding');
   _unsavedBannerDismissed = true;
   setTimeout(function() { b.style.display = 'none'; }, 320);
-}
-
-function saveLeaseNote(last4) {
-  var el = document.getElementById('ldNoteText');
-  if (!el) return;
-  var text = el.value.trim();
-  var key = 'lease:' + last4;
-  if (text) notesData[key] = text;
-  else delete notesData[key];
-  syncNotesToMap();
-  neHasUnsavedNotes = true;
-  _unsavedBannerDismissed = false;
-  showUnsavedBanner();
-  showToast('📝','Note Saved','Export naming file to keep permanently','#10b981');
-}
-
-function deleteLeaseNote(last4) {
-  var key = 'lease:' + last4;
-  delete notesData[key];
-  syncNotesToMap();
-  var el = document.getElementById('ldNoteText');
-  if (el) el.value = '';
-  showToast('🗑','Note Cleared','','#6b7280');
 }
 
 function showLeaseNotePopup(last4, event) {
@@ -6482,7 +6683,7 @@ function saveNoteFromModal() {
   saveNote(_noteModalDate, document.getElementById('noteText').value);
   closeNoteModal();
   renderDailyBar(); // re-render to show/hide note dot
-  renderHeatmap();
+  renderHeatmap(); if(typeof renderGroupDonut==="function") renderGroupDonut();
 }
 
 function deleteNote() {
@@ -6491,7 +6692,7 @@ function deleteNote() {
   syncNotesToMap();
   closeNoteModal();
   renderDailyBar();
-  renderHeatmap();
+  renderHeatmap(); if(typeof renderGroupDonut==="function") renderGroupDonut();
 }
 
 function renderHeatmapNotes() {
@@ -6901,30 +7102,6 @@ function saveWithdrawalArchive() {
     setTimeout(() => { btn.innerHTML = orig; }, 2500);
   }
 }
-function printReport() {
-  if (viewMode === 'gross') {
-    showToast('⚠️', 'Export Blocked', 'Switch to UNO Earnings view before exporting', '#f59e0b');
-    return;
-  }
-  // Re-render all canvases at print resolution before printing
-  const origSizes = [];
-  document.querySelectorAll('canvas').forEach(cv => {
-    origSizes.push({ cv, w: cv.style.width, h: cv.style.height });
-  });
-
-  // Show print notice briefly
-  const notice = document.createElement('div');
-  notice.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:1.5rem 2rem;font-size:.9rem;font-weight:600;z-index:99999;box-shadow:0 20px 60px rgba(0,0,0,.4);text-align:center';
-  notice.innerHTML = '🖨️ Preparing PDF report…<br><span style="font-size:.72rem;color:var(--muted);font-weight:400">Use "Save as PDF" in the print dialog</span>';
-  document.body.appendChild(notice);
-
-  setTimeout(() => {
-    document.body.removeChild(notice);
-    window.print();
-  }, 600);
-}
-
-
 /* ═══════════════════════════════════════════════════════
    CARD COLLAPSE / CLOSE SYSTEM
 ═══════════════════════════════════════════════════════ */
@@ -8870,7 +9047,7 @@ function setDashboardMode(mode) {
     }
     // Update header link
     var link = document.getElementById('switchModeLink');
-    if (link) { link.style.display = ''; link.textContent = 'Switch to Advanced \u2192'; }
+    if (link) { link.style.display = ''; link.textContent = '→ Advanced'; }
     // Always go to overview/dashboard page
     showPage('overview');
   } else {
@@ -8886,7 +9063,7 @@ function setDashboardMode(mode) {
     var ec = document.getElementById('easyModeCharts');
     if (ec) ec.style.display = 'none';
     var link = document.getElementById('switchModeLink');
-    if (link) { link.style.display = ''; link.textContent = '\u2190 Switch to Easy'; }
+    if (link) { link.style.display = ''; link.textContent = '← Easy'; }
   }
   updateModeLabels(mode);
 }
@@ -8923,7 +9100,7 @@ function renderEasyCharts() {
   setTimeout(function() {
     try { 
       var cv1 = document.getElementById('easyTrendCanvas');
-      if (cv1) { console.log('[EasyTrend] parentWidth=' + cv1.parentElement.clientWidth); }
+      if (cv1) { /* debug removed */ }
       renderDailyBar('easyTrendCanvas'); 
     } catch(e) { console.error('[EasyTrend]', e); }
   }, 50);
@@ -8937,7 +9114,7 @@ function renderEasyCharts() {
   }, 150);
 
   setTimeout(function() {
-    try { renderHeatmap('easyHeatmapChart'); } catch(e) { console.error('[EasyHeatmap]', e); }
+    try { renderHeatmap('easyHeatmapChart', 40); } catch(e) { console.error('[EasyHeatmap]', e); }
   }, 200);
 }
 
@@ -8963,9 +9140,72 @@ let _currentPage = 'overview';
   }
 })();
 
+/* ── Key Dropdown ── */
+function toggleKeyDropdown(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('keyDropdown');
+  if (dd.style.display === 'none') {
+    populateKeyDropdown();
+    dd.style.display = 'block';
+    // Close on outside click
+    setTimeout(function() {
+      document.addEventListener('click', _closeKeyDD, { once: true });
+    }, 10);
+  } else {
+    dd.style.display = 'none';
+  }
+}
+function _closeKeyDD() { document.getElementById('keyDropdown').style.display = 'none'; }
+
+function populateKeyDropdown() {
+  var gEl = document.getElementById('keyGroups');
+  var nEl = document.getElementById('keyNodes');
+  if (!gEl || !nEl) return;
+
+  // Groups
+  var groups = getGroupsAll ? getGroupsAll() : [];
+  if (groups.length) {
+    gEl.innerHTML = groups.map(function(g) {
+      var col = grpCol(g);
+      var lbl = grpLabel ? grpLabel(g) : g;
+      var count = leaseData ? leaseData.filter(function(l) { return l.group === g; }).length : 0;
+      var total = leaseData ? leaseData.filter(function(l) { return l.group === g; }).reduce(function(s,l) { return s + l.alltime; }, 0) : 0;
+      return '<div style="display:flex;align-items:center;gap:.5rem;padding:.3rem .4rem;border-radius:6px;background:var(--surface2)">' +
+        '<div style="width:10px;height:10px;border-radius:3px;background:' + col + ';flex-shrink:0"></div>' +
+        '<span style="font-size:.7rem;font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + sanitizeText(lbl) + '</span>' +
+        '<span style="font-size:.6rem;color:var(--muted);flex-shrink:0">' + count + ' leases</span>' +
+        '<span style="font-size:.6rem;font-family:var(--font-mono),monospace;color:' + col + ';flex-shrink:0">$' + total.toFixed(2) + '</span>' +
+        '</div>';
+    }).join('');
+  } else {
+    gEl.innerHTML = '<div style="font-size:.65rem;color:var(--muted)">No groups defined</div>';
+  }
+
+  // Nodes
+  var nodeIds = Object.keys(nodeMap || {});
+  if (nodeIds.length) {
+    nEl.innerHTML = nodeIds.map(function(nid, idx) {
+      var n = nodeMap[nid];
+      var count = n.leaseCount || 0;
+      var pct = Math.round(count / 200 * 100);
+      var barCol = pct >= 90 ? '#ef4444' : pct >= 70 ? '#f59e0b' : '#10b981';
+      return '<div style="padding:.3rem .4rem;border-radius:6px;background:var(--surface2)">' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem">' +
+        '<span style="font-size:.65rem;font-weight:700;background:var(--surface3);border-radius:4px;padding:.1rem .35rem">N' + (idx+1) + '</span>' +
+        '<span style="font-size:.7rem;font-weight:600;flex:1">' + sanitizeText(n.name) + '</span>' +
+        '<span style="font-size:.6rem;color:var(--muted)">' + count + '/200</span>' +
+        '</div>' +
+        '<div style="height:4px;border-radius:3px;background:var(--border);overflow:hidden"><div style="height:100%;width:' + pct + '%;background:' + barCol + ';border-radius:3px"></div></div>' +
+        '</div>';
+    }).join('');
+  } else {
+    nEl.innerHTML = '<div style="font-size:.65rem;color:var(--muted)">No nodes detected</div>';
+  }
+}
+
 function toggleTheme() {
   const isLight = document.body.classList.toggle('light');
-  document.getElementById('themeBtn').textContent = isLight ? '🌙 Dark' : '☀ Light';
+  document.getElementById('themeBtn').textContent = isLight ? '🌙' : '☀';
   try { localStorage.setItem('unity_theme', isLight ? 'light' : 'dark'); } catch(e) {}
 }
 
@@ -8989,6 +9229,7 @@ function showPage(page) {
     if (page === 'distribution') {
       if (typeof renderDist   === 'function') renderDist();
       if (typeof renderRadar  === 'function') { renderRadar(); initRadarHover(); }
+      if (typeof renderGroupDonut === 'function') renderGroupDonut();
     }
     if (page === 'earnings'     && typeof renderDailyBar === 'function') renderDailyBar();
     if (page === 'analytics') {
@@ -9051,7 +9292,7 @@ function syncTopBarPadding() {
   if (startLight) {
     document.body.classList.add('light');
     const btn = document.getElementById('themeBtn');
-    if (btn) btn.textContent = '🌙 Dark';
+    if (btn) btn.textContent = '🌙';
   }
 })();
 
@@ -9629,7 +9870,7 @@ window.buildDashboard = function() {
 
     // Welcome toast
     const txnCount = typeof allData !== 'undefined' ? allData.length : 0;
-    showToast('📊', 'Dashboard built!', `${txnCount.toLocaleString()} transactions loaded`, '#3b82f6');
+    // toast removed — dashboard build is self-evident
 
     // Pre-populate names editor with lease data
 
@@ -9917,6 +10158,14 @@ function neOutput(){
 
   // Export node names and order
   var nodeIds = Object.keys(nodeMap);
+  // Fallback: if nodeMap is empty, try to restore from dynamicLeaseMap backup
+  if (!nodeIds.length && dynamicLeaseMap && dynamicLeaseMap.__nodeNames) {
+    var backup = dynamicLeaseMap.__nodeNames;
+    Object.keys(backup).forEach(function(nid) {
+      nodeMap[nid] = { id: nid, name: backup[nid].name || 'Node ' + (Object.keys(nodeMap).length + 1), leaseCount: 0, earnings: 0 };
+    });
+    nodeIds = Object.keys(nodeMap);
+  }
   if (nodeIds.length > 0) {
     lines.push('# Nodes');
     nodeIds.forEach(function(nid, idx) {
@@ -10421,7 +10670,9 @@ function neDoImport() {
   const text = document.getElementById('neImportText').value;
   if (!text.trim()) return;
 
-  neLeases = []; neGroups = []; neNL = 1; neNG = 1; notesData = {};
+  // Preserve existing notes - import will merge, not replace
+  var preservedNotes = JSON.parse(JSON.stringify(notesData || {}));
+  neLeases = []; neGroups = []; neNL = 1; neNG = 1; notesData = preservedNotes;
   const gMap = {};
   let curGid = null;
 
@@ -10496,7 +10747,33 @@ function neDoImport() {
 function neExportFile() {
   // Save split settings into dynamicLeaseMap before export
   saveSplitSettings(dynamicLeaseMap);
+
+  // Auto-save any open lease note before export
+  var openEl = document.getElementById('ldNoteText');
+  var openHex = window._currentLeaseHex;
+  if (openEl && openHex) {
+    var txt = openEl.value.trim();
+    var nKey = 'lease:' + openHex;
+    if (txt) notesData[nKey] = txt;
+    else if (notesData[nKey] && !txt) { /* keep existing if field is empty but was loaded */ }
+  }
+
   const output = neOutput();
+
+  // Safety check — warn if output seems too small (possible data loss)
+  var lineCount = output.split('\n').length;
+  var hasNodes = output.indexOf('nodename:') >= 0;
+  var hasNotes = output.indexOf('note:') >= 0;
+  var noteCount = (output.match(/^note:/gm) || []).length;
+  var existingNotes = Object.keys(notesData).length;
+
+  if (neLeases.length > 5 && lineCount < neLeases.length / 2) {
+    console.warn('[EXPORT WARNING] Output has fewer lines than expected. Leases:', neLeases.length, 'Lines:', lineCount);
+  }
+  if (existingNotes > 0 && noteCount === 0) {
+    console.warn('[EXPORT WARNING] Notes exist in memory but none in export!', existingNotes, 'notes lost');
+  }
+
   const blob = new Blob([output], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -10505,10 +10782,12 @@ function neExportFile() {
   a.click();
   URL.revokeObjectURL(url);
   neHasChanges = false;
-  showToast('💾', 'Naming File Saved', 'Naming_File_UnityNodes → Downloads', '#8b5cf6');
+  var exportMsg = neLeases.length + ' leases';
+  if (hasNodes) exportMsg += ' · nodes ✓';
+  if (noteCount > 0) exportMsg += ' · ' + noteCount + ' notes ✓';
+  showToast('💾', 'Naming File Exported', exportMsg, '#8b5cf6');
   neHasUnsavedNotes = false;
   hideUnsavedBanner();
-  showToast('💾', 'Exported', 'Unity Lease_Node_Group_Names.txt — upload this file next time to keep your names & notes', '#10b981');
 }
 function nePopulate(){
   if(neLeases.length>0)return;
