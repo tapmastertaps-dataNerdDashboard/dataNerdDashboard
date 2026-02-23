@@ -1,0 +1,95 @@
+# dataNerds Unity Dashboard — Test Lease Names
+# Format: Name  Hex4  NodeFlag  [SplitFlag]  [ExpiryFlag]
+#
+# This file demonstrates all naming features:
+#   - Groups with custom colors
+#   - Node assignments (n1-n3)
+#   - Split percentages (s50 = 50%)
+#   - Split histories (sh:date=val,date=val)
+#   - Lease expiry dates (exp:YYYY-MM-DD)
+#   - Node names
+#   - Notes (date notes + lease notes)
+#   - Settings (goal, alerts, favorites)
+#   - Group-level splits
+
+# ── Node Names ──
+nodename:9a03807b8b504d1e14c3e4cd  Alpha-Prime  n1
+nodename:3e82e89a51a64d7b38ca18e3  Bravo-East  n2
+nodename:b0e3d9f2a8c74e1d5f6b2c9a  Charlie-West  n3
+
+# ── Settings ──
+setting:monthlyGoal  75
+setting:alertLeaseMin  0.005
+setting:alertDayMin  0.02
+setting:favorites  e0c4,3038,9c50
+
+# ── Group-level Splits ──
+split:group:Powerhouse  100
+split:group:Workhorses  85
+split:group:Scouts  75
+split:group:New Fleet  50
+split:group:Outpost  60
+
+# ────────────────────────────────────────────
+# Powerhouse — #10b981
+# ────────────────────────────────────────────
+Titan       e0c4  n1  s100
+Vanguard    061e  n1  s100
+Apex        3038  n1  s100
+
+# ────────────────────────────────────────────
+# Workhorses — #3b82f6
+# ────────────────────────────────────────────
+Ironclad    940a  n1  s85
+Sentinel    7640  n1  s85
+Phoenix     3e8f  n1  sh:2026-01-08=50,2026-01-22=70,2026-02-05=85
+Rampart     fb7b  n1  s85  exp:2026-04-15
+Bastion     e441  n1  s85
+Bulwark     b440  n1  s85
+Fortitude   a2f4  n1  s85  exp:2026-03-20
+
+# ────────────────────────────────────────────
+# Scouts — #f59e0b
+# ────────────────────────────────────────────
+Pathfinder  1323  n2  s75
+Ranger      bc36  n2  s75
+Nomad       44c5  n2  s75
+Tracker     0b72  n2  s75
+Viper       9c50  n2  s75
+Drift       6f7a  n2  sh:2026-01-08=90,2026-02-01=75
+Whisper     9ebe  n2  s75  exp:2026-05-01
+Falcon      f9ca  n2  s75
+
+# ────────────────────────────────────────────
+# New Fleet — #8b5cf6
+# ────────────────────────────────────────────
+Rookie      63c6  n3  s50
+Spark       2ebe  n3  s50
+Ghost       a7e1  n3  s50  exp:2026-03-01
+Ember       ec93  n3  s50
+Flicker     0f2e  n3  s50
+
+# ────────────────────────────────────────────
+# Outpost — #ef4444
+# ────────────────────────────────────────────
+Relic       392c  n3  s60
+
+# ── Date Notes ──
+note:2026-01-08  Dashboard test data begins. All 24 leases online.
+note:2026-01-15  First withdrawal processed — $0.45 ADA.
+note:2026-01-22  Phoenix split increased from 50% to 70%. Noticeable improvement.
+note:2026-02-01  Drift split reduced from 90% to 75%. Monitoring impact.
+note:2026-02-05  Ghost lease went dark — no earnings since this date. Investigating node issue.
+note:2026-02-10  Week-over-week earnings trending up across Node 1.
+note:2026-02-15  Attempted ETH withdrawal — failed. Sticking with ADA.
+note:2026-02-20  45-day milestone. Preparing monthly report.
+
+# ── Lease Notes ──
+note:lease:e0c4  Top earner since day one. Consistently highest single-txn rewards. The anchor of Node 1.
+note:lease:3038  Second-best performer. Strong consistency. Would not reassign.
+note:lease:3e8f  Started at 50% split, negotiated up to 85%. Earning trajectory is climbing nicely.
+note:lease:6f7a  Was at 90% split but declining earnings forced renegotiation to 75%. Still trending down — may need to investigate.
+note:lease:a7e1  Went offline around Feb 5. No transactions since. Possible node connectivity issue on Charlie-West.
+note:lease:9c50  Sleeper hit — modest base but incredibly consistent. Rarely misses a day.
+note:lease:392c  Only lease in Outpost group. Low earner but keeps the group alive for tracking purposes.
+note:lease:fb7b  Expires April 15. Need to decide on renewal. Strong performer.
